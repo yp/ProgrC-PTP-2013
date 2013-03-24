@@ -29,6 +29,10 @@ div.slides ol,ul {
     font-size: 260% !important;
 }
 
+.evenlessspacebefore {
+    margin-top: -1.5em;
+}
+
 .lessspacebefore {
     margin-top: -1.0em;
 }
@@ -40,6 +44,10 @@ div.slides ol,ul {
 p {
     line-height: 1.75em;
     margin-bottom: 1.25em;
+}
+
+.highline {
+    line-height: 1.5em;
 }
 
 .smaller {
