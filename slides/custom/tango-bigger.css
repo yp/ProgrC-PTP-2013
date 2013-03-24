@@ -1,0 +1,92 @@
+pre {
+    font-size: 24px;
+}
+
+div.slides {
+    font-size: 180%;
+}
+
+div.slides ol,ul {
+    font-size: 100% !important;
+    margin-left: 1.25em;
+    -webkit-margin-before: -1.5em;
+    line-height: 1.25em;
+}
+
+.center {
+    text-align: center !important;
+}
+
+.larger {
+    font-size: 140% !important;
+}
+
+.large {
+    font-size: 180% !important;
+}
+
+.huge {
+    font-size: 260% !important;
+}
+
+.lessspacebefore {
+    margin-top: -1.0em;
+}
+
+.lesserspacebefore {
+    margin-top: -0.75em;
+}
+
+p {
+    line-height: 1.75em;
+    margin-bottom: 1.25em;
+}
+
+.smaller {
+    font-size: 90% !important;
+}
+
+.small {
+    font-size: 70% !important;
+}
+
+.note {
+    position: absolute;
+    bottom: 1em;
+    right: 10px;
+    line-height: 1em;
+    margin: 0.1em;
+}
+
+strong,em {
+    color: #204a87 !important;
+}
+
+blockquote>p {
+    margin: 0px;
+}
+
+div.slide table {
+    min-width: 40%;
+    text-align: center;
+    font-size: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.slide td {
+    width: 20%;
+}
+
+div.slide th {
+    border-bottom: solid 4px #555753;
+}
+
+div.slide table tr:nth-child(odd) td{
+    background-color: #CCCCCC;
+}
+
+div.slide h1:not(only-child) {
+    font-size: 140%;
+}
+
