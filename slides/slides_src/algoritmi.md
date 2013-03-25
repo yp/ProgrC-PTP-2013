@@ -347,10 +347,10 @@ Non si considera il "numero preciso" ma l'_andamento asintotico_ all'aumentare d
 
 Notazione O-grande = descrizione dell'andamento asintotico di una funzione in \\(n\\) per \\( n \to +\infty\\)
 
-\\( f(n) = O(g(n)) \iff \exists c, n_0 : \forall n > n_0 f(n) \leq c \cdot g(n) \\)
+\\( f(n) = O(g(n)) \iff \exists c, n_0 : \forall n > n_0,\ f(n) \leq c \cdot g(n) \\)
 {: .center}
 
-* \\(g(n)\)) è un "upper bound" alla crescita di \\(f(n)\))
+* \\(g(n)\\) è un "upper bound" alla crescita di \\(f(n)\\)
 * Utile per "confrontare" funzioni tra loro
 * Esempi:
   \\( 13n^3 + 18n^2 + 1011 = O(n^3) \\)
@@ -600,7 +600,7 @@ Take home message:
 * Un algoritmo è _efficiente_ se ha complessità polinomiale
 {: .highline}
 * Un algoritmo _non efficiente_ non può risolvere istanze "grandi" (indipendentemente dalla potenza del PC)
-  \\( \RightArrow \\) è meglio cercare algoritmi efficienti
+  \\( \to \\) è meglio cercare algoritmi efficienti
 {: .highline}
 * _Trattabilità_: non sempre un algoritmo efficiente esiste
 {: .highline}
