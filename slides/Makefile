@@ -1,11 +1,16 @@
 .PHONY: base
 
-all: custom/tango-bigger.css out/index.html out/1-probl-algo.html
+all: out/index.html out/1-probl-algo.html out/2-ling-C-basi.html
 
-out/index.html: config.cfg slides_src/frontpage.md slides_src/index.md
+out/index.html: config.cfg custom/tango-bigger.css slides_src/frontpage.md slides_src/index.md
 	@mkdir -p out ; \
 	bash ./compile.sh config.cfg
 
-out/1-probl-algo.html: config-1.cfg slides_src/frontpage.md slides_src/intro.md slides_src/algoritmi.md
+out/1-probl-algo.html: config-1.cfg custom/tango-bigger.css slides_src/frontpage.md slides_src/intro.md slides_src/algoritmi.md
 	@mkdir -p out ; \
 	bash ./compile.sh config-1.cfg
+
+out/2-ling-C-basi.html: config-2.cfg custom/tango-bigger.css slides_src/frontpage.md slides_src/download-slides.md slides_src/c-intro.md slides_src/c-basi.md slides_src/c-if-while-for.md slides_src/c-funzioni.md
+	@mkdir -p out ; \
+	bash ./compile.sh config-2.cfg
+
