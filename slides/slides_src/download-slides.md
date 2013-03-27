@@ -5,7 +5,7 @@ Le slides sono disponibili al link:
 <http://yp.github.com/ProgrC-PTP-2013>
 {: .evenlessspacebefore .center}
 
-**OK:** Firefox e Chrome. **NO:** Internet Explorer. **??:** Safari.
+**BEST:** Chrome. **OK:** Firefox. **NO:** Internet Explorer. **??:** Safari.
 
 Per scaricarle:
 {: .smaller}
