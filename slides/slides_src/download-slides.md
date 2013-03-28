@@ -1,16 +1,13 @@
 ## Scaricare le slides
 
-Le slides sono disponibili al link:
-
-<http://yp.github.com/ProgrC-PTP-2013>
-{: .evenlessspacebefore .center}
+Le slides sono scaricabili e consultabili in locale.
 
 **BEST:** Chrome. **OK:** Firefox, Safari. **NO:** Internet Explorer.
 
 Per scaricarle:
 {: .smaller}
 
-- andare sulla slide dei contenuti
+- andare alla [slide dei contenuti](http://yp.github.com/ProgrC-PTP-2013/#slide2)
 {: .smaller}
 - cliccare con il tasto _dx_ sulla parte che interessa
 {: .smaller}

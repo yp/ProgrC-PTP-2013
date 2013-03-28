@@ -227,6 +227,7 @@ Devo ricordarmi di compilare tutto assieme!
     !c
     // File: somma.h
     #ifndef __SOMMA_H__ // Evita inclusioni multiple
+    #define __SOMMA_H__
     int somma2num(int a, int b);
     #endif
     

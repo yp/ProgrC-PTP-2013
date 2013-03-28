@@ -49,8 +49,10 @@ _Esempio:_
 La _dichiarazione con inizializzazione_ è:
 
     !c
+    int vettore[10]= {};  // Azzera il vettore
+
     char parola[5]= {'c', 'i', 'a', 'o', '\0'};
-    
+
     int riga[]= {1, 5, 0, 4, 1};
 
 La dimensione può essere omessa perché viene dedotta dal numero di valori iniziali (`5` in questo caso).
@@ -66,7 +68,7 @@ _Il primo elemento è in posizione `0`!!_
 
     !c
     char parola[5]= {'c', 'i', 'a', 'o', '\0'};
-    
+
     printf("%c\n", parola[2]);  // Stampa: a
 
     printf("%c\n", parola[0]);  // Stampa: c
@@ -114,10 +116,71 @@ Per la **copia** di un array, dobbiamo usare un _ciclo_.
 
     !c
     int arr_A[4]= {1, 2, 3, 4};
-    
+
     int arr_B[4];
     for (int i= 0; i<4; ++i) {
         arr_B[i]= arr_A[i];      // OK !!!
+    }
+
+
+---
+
+## Array multi-dimensionali
+
+_Sintassi:_
+{: .lessspaceafter }
+
+    !c
+    int matrice[6][8] = { { 1, 2, 3, 4, 5, 6, 7, 8 },
+                          { 9, 10, ... },
+                          ...  };
+
+_Memorizzazione:_ "latest index is the fastest"
+{: .smaller}
+
+![arraydim](img/c-array-multidim-esempio.png){: style="width: 50%;"}
+
+
+---
+
+## Array multi-dimensionali
+
+_Indicizzazione di elementi:_
+
+    !c
+    // Dichiarazione
+    int tab[3][4]= {{ 1,  2,  3,  4},
+                    { 5,  6,  7,  8},
+                    { 9, 10, 11, 12}};
+
+    // Uso/indicizzazione
+    printf("%d %d\n", tab[1][3], tab[2][1]);
+    // Cosa stampa?
+
+
+---
+
+## Funzioni con parametri array
+
+Posso definire funzioni con parametri di tipo array:
+
+    !c
+    ...          // Devo specificare la lunghezza di
+                 // tutte le dimensioni tranne la prima
+    int somma_array(int array[], int n) {
+        int somma= 0;
+        for (int i= 0; i<n; ++i) {
+            somma += array[i];
+        }
+        return somma;
+    }
+    ...
+    int main() {
+        ...
+        int v[]= {5, 2, 4, 1};
+        ...
+        int somma= somma_array(v, l);
+        ...
     }
 
 
@@ -180,7 +243,7 @@ _Esempio:_
     printf("Come ti chiami? ");
 
     scanf("%s", nome);          // Le stringhe *non* vogliono &
-    
+
     printf("Ciao, %s!\n", nome);
 
 
@@ -209,13 +272,13 @@ _Esempio:_
     !c
     char s1[100]= "Ciao";
     char s2[100]= "Mario";
-    
+
     int s1len= strlen(s1);
     printf("La stringa '%s' è di %d caratteri.\n", s1, s1len);
 
     strcat(s1, " da ");
     printf("La stringa s1 ora è '%s'\n", s1);
-    
+
     strcpy(s2, "Pippo");
     printf("La stringa s2 ora è '%s'\n", s2);
 
@@ -239,31 +302,6 @@ Si deve usare la funzione `strcmp` (header `<string.h>`):
     // cmp == 0 --> s1 = s2
     // cmp <  0 --> s1 < s2
     // cmp >  0 --> s1 > s2
-
-
----
-
-## Funzioni con parametri array
-
-Posso definire funzioni con parametri di tipo array:
-
-    !c
-    ...
-    int somma_array(int array[], int n) {
-        int somma= 0;
-        for (int i= 0; i<n; ++i) {
-            somma += array[i];
-        }
-        return somma;
-    }
-    ...
-    int main() {
-        ...
-        int v[]= {5, 2, 4, 1};
-        ...
-        int somma= somma_array(v, l);
-        ...
-    }
 
 
 ---
