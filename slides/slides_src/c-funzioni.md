@@ -97,7 +97,7 @@ _Esempio:_ il programma principale _non_ può usare la variabile `risultato`.
     }
     ...
     int main() {
-        ...
+        ... // Qua NON posso usare la variabile 'risultato'
     }
 
 
@@ -155,6 +155,13 @@ Cosa succede?
 {: .quitesmaller}
 4. quando si incontra l'istruzione `return` il valore viene "ritornato" alla funzione _chiamante_ che riprende l'esecuzione
 {: .quitesmaller}
+
+
+---
+
+## Esercizio intermedio
+
+Completare lo spezzone di codice della slide precedente per la somma di due numeri (quindi definendo e utilizzando la funzione `somma2num(...)`).
 
 
 ---
@@ -309,3 +316,14 @@ In particolare se ho una _tail-recursion_:
         }
     }
     ...
+
+
+---
+
+## Esercizio
+
+Scrivere un programma che definisca (e utilizzi) una funzione `MCD(a, b)` per il calcolo del _massimo comun divisore_ tra due numeri \\(a\\) e \\(b\\).
+
+Pensare prima all'algoritmo!
+Serve un costrutto iterativo? Se sì, quale?
+

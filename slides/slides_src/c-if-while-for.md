@@ -146,19 +146,6 @@ A seconda dei casi è più appropriato l'uno o l'altro.
 
 ---
 
-## Esercizi
-
-Scrivere un programma che sommi i primi \\(n\\) numeri naturali (con \\(n\\) letto da terminale).
-
-Scrivere un programma che sommi \\(n\\) numeri interi letti da terminale (con \\(n\\) letto da terminale prima della sequenza di numeri).
-
-Scrivere un programma che sommi una sequenza di numeri interi letti da terminale e terminante con il numero `0`.
-
-Quali costrutti iterativi è meglio usare? Perché?
-
-
----
-
 ## Il costrutto iterativo `for`
 
 È solo "syntactic-sugar"
@@ -219,7 +206,7 @@ La dichiarazione di una variabile in `<init>` è permessa a partire da C99 ma **
 
 In Orwell Dev-C++, si imposta lo standard con:
 `Tools` > `Compiler options` > `Settings` >
-&nbsp;&nbsp;&nbsp;&nbsp; > `Code generation` > `Language standard`
+&nbsp;&nbsp;&nbsp;&nbsp; > `Code generation` > `Language standard` > `Gnu99`
 
 
 ---
@@ -233,7 +220,18 @@ Cicli `while`, `do..while` e `for` sono equivalenti ma:
 * ciclo `for` si usa quando si conosce a priori il numero delle iterazioni (è lo "scorrimento")
 {: .highline}
 
-_Domanda:_ in quale degli esercizi precedenti sulla somma di una sequenza di numeri era "appropriato" un ciclo `for`?
+
+---
+
+## Esercizi di riepilogo
+
+Scrivere un programma che sommi i primi \\(n\\) numeri naturali (con \\(n\\) letto da terminale).
+
+Scrivere un programma che sommi \\(n\\) numeri interi letti da terminale (con \\(n\\) letto da terminale prima della sequenza di numeri).
+
+Scrivere un programma che sommi una sequenza di numeri interi letti da terminale e terminante con il numero `0`.
+
+Quali costrutti iterativi è meglio usare? Perché?
 
 
 ---
