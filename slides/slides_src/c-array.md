@@ -87,7 +87,7 @@ _Esempio:_
     int riga[5]= {1, 5, 0, 4, 1};
 
     for (int i= 0 ; i<5 ; i++) {
-        printf("Elemento %d-esimo: %d\n", i, riga[i]);
+        printf("Elemento di posto %d: %d\n", i, riga[i]);
     }
 
 _Output:_
@@ -179,7 +179,7 @@ Posso definire funzioni con parametri di tipo array:
         ...
         int v[]= {5, 2, 4, 1};
         ...
-        int somma= somma_array(v, l);
+        int somma= somma_array(v, 4);
         ...
     }
 
