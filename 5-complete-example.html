@@ -1446,6 +1446,10 @@ div.slide h1:not(only-child) {
     </script>
     
     
+      
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML.js"></script>
+      
+    
     <!-- /Javascripts -->
 </head>
 <body>
@@ -1488,28 +1492,153 @@ Marzo 2013 - Parco Tecnologico Padano</p></section>
             </aside>
             
             <aside class="page_number">
-              1/3
+              1/6
             </aside>
           </footer>
         </div>
       </div>
       
-      <!-- slide source: slides_src/index.md -->
+      <!-- slide source: slides_src/esempio-fst.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
             
-            <header><h2>Elementi di programmazione in C</h2></header>
+            <header><h1>Un caso (semi) reale</h1></header>
             
             
-            <section><p>Contenuti:</p>
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/esempio-fst.md">slides_src/esempio-fst.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/6
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/esempio-fst.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Calcolo dell'\(F_{ST}\)</h2></header>
+            
+            
+            <section><p><strong>Fixation index \(F_{ST}\):</strong> measure of population differentiation due<br />
+to genetic structure.</p>
+<p class="smaller note">Fonte: <a href="http://en.wikipedia.org/wiki/Fixation_index">Wikipedia</a> <a href="http://www.uwyo.edu/dbmcd/popecol/maylects/fst.html">Lectures</a><br /></p>
+<p>$$ F_{ST} = \frac{H_T - H_S}{H_T} $$</p>
+<p>\( H_S = \) media ponderata delle eterozigosità attese delle singole popolazioni</p>
+<p>\( H_T = \) eterozigosità attesa in tutta la popolazione</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/esempio-fst.md">slides_src/esempio-fst.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/6
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/esempio-fst.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Eterozigosità attesa</h2></header>
+            
+            
+            <section><p>Sotto l'ipotesi di HWE (per loci biallelici):</p>
+<p>$$ H_{exp} = 2pq $$</p>
+<p>dove \(p\) e \(q\) sono le frequenze (relative) dei due alleli.</p>
+<p>Può essere calcolata su tutta la popolazione se le due frequenze si riferiscono alla popolazione intera, o su una sottopopolazione se le frequenze si riferiscono alla sottopopolazione.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/esempio-fst.md">slides_src/esempio-fst.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/6
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/esempio-fst.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Calcoliamo l'\(F_{ST}\)</h2></header>
+            
+            
+            <section><p><strong>Problema:</strong> a partire da un file che specifica su ogni linea una coppia <code>p g</code>, dove <code>p</code> è l'identificativo della popolazione e <code>g</code> è il genotipo di un individuo per un locus predeterminato (e unico per tutto il file) codificato con <code>0</code> omozigote per l'allele maggiore, <code>1</code> eterozigote e <code>2</code> omozigote per l'allele minore, calcolare l'\(F_{ST}\) per quel gruppo di popolazioni (e quel locus).</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/esempio-fst.md">slides_src/esempio-fst.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/6
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/esempio-fst.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Calcoliamo l'\(F_{ST}\)</h2></header>
+            
+            
+            <section><p>Come fare?</p>
 <ol>
-<li><a href="1-probl-algo.html">Problemi e Algoritmi</a></li>
-<li><a href="2-ling-C-basi.html">Linguaggio C (parte 1)</a></li>
-<li><a href="3-ling-C-interm.html">Linguaggio C (parte 2)</a></li>
-<li><a href="4-ling-C-adv.html">Linguaggio C (parte 3)</a></li>
-<li><a href="5-complete-example.html">Un esempio completo</a></li>
-</ol></section>
+<li class="highline">Calcolo delle frequenze alleliche \(p\) e \(q\) per ciascuna sottopopolazione e per la popolazione complessiva.<br /></li>
+<li>Calcolo delle eterozigosità attese</li>
+<li>Calcolo dell'\( F_{ST} \)</li>
+</ol>
+<p>Una possibile implementazione è disponibile <a href="https://raw.github.com/yp/ProgrC-PTP-2013/master/examples/7-fst.c">qui</a>.</p></section>
             
           </div>
           <div class="presenter_notes">
@@ -1521,50 +1650,11 @@ Marzo 2013 - Parco Tecnologico Padano</p></section>
           <footer>
             
             <aside class="source">
-              Source: <a href="slides_src/index.md">slides_src/index.md</a>
+              Source: <a href="slides_src/esempio-fst.md">slides_src/esempio-fst.md</a>
             </aside>
             
             <aside class="page_number">
-              2/3
-            </aside>
-          </footer>
-        </div>
-      </div>
-      
-      <!-- slide source: slides_src/download-slides.md -->
-      <div class="slide-wrapper">
-        <div class="slide">
-          <div class="inner">
-            
-            <header><h2>Scaricare le slides</h2></header>
-            
-            
-            <section><p>Le slides sono scaricabili e consultabili in locale.</p>
-<p><strong>BEST:</strong> Chrome. <strong>OK:</strong> Firefox, Safari. <strong>NO:</strong> Internet Explorer.</p>
-<p class="smaller">Per scaricarle:<br /></p>
-<ul>
-<li class="smaller">andare alla <a href="http://yp.github.com/ProgrC-PTP-2013/#slide2">slide dei contenuti</a><br /></li>
-<li class="smaller">cliccare con il tasto <em>dx</em> sulla parte che interessa<br /></li>
-<li class="smaller">selezionare <em>Salva destinazione con nome</em> (o similare)<br /></li>
-</ul>
-<p class="smaller">Il file <code>.html</code> risultante è consultabile anche in locale.<br />
-(la parte matematica potrebbe non funzionare se non connessi ad internet)<br /></p></section>
-            
-          </div>
-          <div class="presenter_notes">
-            <header><h1>Presenter Notes</h1></header>
-            <section>
-            
-            </section>
-          </div>
-          <footer>
-            
-            <aside class="source">
-              Source: <a href="slides_src/download-slides.md">slides_src/download-slides.md</a>
-            </aside>
-            
-            <aside class="page_number">
-              3/3
+              6/6
             </aside>
           </footer>
         </div>
@@ -1583,15 +1673,31 @@ Marzo 2013 - Parco Tecnologico Padano</p></section>
         <td><a href="#slide1">1</a></td>
       </tr>
       
-        
-        <tr id="toc-row-2" class="sub">
-          <th><a href="#slide2">Elementi di programmazione in C</a></th>
-          <td><a href="#slide2">2</a></td>
-        </tr>
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">Un caso (semi) reale</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
         
         <tr id="toc-row-3" class="sub">
-          <th><a href="#slide3">Scaricare le slides</a></th>
+          <th><a href="#slide3">Calcolo dell'\(F_{ST}\)</a></th>
           <td><a href="#slide3">3</a></td>
+        </tr>
+        
+        <tr id="toc-row-4" class="sub">
+          <th><a href="#slide4">Eterozigosità attesa</a></th>
+          <td><a href="#slide4">4</a></td>
+        </tr>
+        
+        <tr id="toc-row-5" class="sub">
+          <th><a href="#slide5">Calcoliamo l'\(F_{ST}\)</a></th>
+          <td><a href="#slide5">5</a></td>
+        </tr>
+        
+        <tr id="toc-row-6" class="sub">
+          <th><a href="#slide6">Calcoliamo l'\(F_{ST}\)</a></th>
+          <td><a href="#slide6">6</a></td>
         </tr>
         
       

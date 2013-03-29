@@ -1,0 +1,3280 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Elementi di programmazione in C</title>
+    <!-- Styles -->
+    
+    <style type="text/css" media="print">
+      * {
+    margin: 0;
+    padding: 0;
+}
+
+@page {
+    size: landscape;
+}
+
+body {
+    font: 100% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+div.slide {
+    min-width: 800px;
+    min-height: 600px;
+    padding: 1em;
+    overflow: hidden;
+    page-break-after: always;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+div.slide div.inner {
+    width: 800px;
+    height: 600px;
+    margin: auto;
+    display: table-cell;
+}
+
+h1 {
+    font-size: 2.4em;
+}
+
+h2 {
+    font-size: 1.4em;
+}
+
+h3 {
+    margin: 1em 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+p, li, pre {
+    margin: 1em 0;
+}
+
+li {
+    margin-left: 2em;
+}
+
+a {
+    color: #000000;
+}
+
+pre, code {
+    max-width: 800px;
+    background: #eee;
+    font-family: Monaco, monospace;
+    font-size: 90%;
+}
+
+pre {
+    padding: .2em .5em;
+    overflow: hidden;
+    border-radius: .8em;
+}
+
+code {
+    padding: 0 .2em;
+}
+
+.slide header:only-child h1 {
+  line-height: 180%;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  height: 600px;
+  width: 800px;
+  font-size: 48px;
+  margin-top:100px;
+  margin-bottom:100px;
+}
+
+#toc, #help, .slide aside, .slide footer, .slide .notes,
+.presenter_notes, #current_presenter_notes, #presenter_note {
+  display: none;
+}
+
+    </style>
+    <style type="text/css" media="screen, projection">
+      h1, h2, h3, h4, h5, h6, p, ul, li {
+    font-family: "Lucida Grande", "Trebuchet MS", Verdana, sans-serif !important;
+}
+
+p, ul, li {
+    color: #555753 !important;
+    font-size: 120% !important;
+}
+
+header h1, header h2, header h3, header h4, header h5, header h6 {
+    color: #204a87 !important;
+    font-weight: bold !important;
+}
+
+section h1, section h2, section h3, section h4, section h5, section h6 {
+    color: #3465a4 !important;
+}
+
+img { display: block; margin: auto; }
+
+body {
+  font: 14px "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+  background: #555753;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+div.presentation {
+  position: absolute;
+  width: 100%;
+  display: table-cell;
+  vertical-align: middle;
+  height: 100%;
+  background: -webkit-gradient(linear, left bottom, left top, from(#2e3436), to(#555753));
+  background-color: #555753;
+  background: -moz-linear-gradient(bottom, #555753, #2e3436);
+}
+
+div.slides, body.expose div.slides.nocontext {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  display: block;
+}
+
+div.slides.nocontext {
+  width: 900px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  left: auto;
+  top: auto;
+}
+
+div.slide {
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA4QAAAAICAIAAAAutqZSAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAAXDAAAFwwBigKOZgAAAAd0SU1FB9oMBhYcN9mLAKQAAAB1SURBVHja7dahDYNQAEXRUkGYgB0YqCgEG6CRXaAGh/5Jk6paJCv8iVjhCeQ5I1x1m/Ig9dtbEUL1/xYhVMZVhFA3a5D61l6E0Ll9RAgdyyRC6PkaREhbSQAAgBkFAMCMAgCAGQUAwIwCAIAZBQDAjAIAwF0uR8ALUUwQdKwAAAAASUVORK5CYII=') bottom center no-repeat;
+  display: none;
+  position: absolute;
+  overflow: hidden;
+  width: 900px;
+  height: 700px;
+  left: 50%;
+  top: 50%;
+  margin-top: -350px;
+  background-color: #fff;
+  -webkit-transition: margin 0.25s ease-in-out;
+  -moz-transition: margin 0.25s ease-in-out;
+  -o-transition: margin 0.25s ease-in-out;
+  border-top-left-radius: 20px;
+  -moz-border-radius-topleft: 20px;
+  -webkit-border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  -moz-border-radius-topright: 20px;
+  -webkit-border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  -moz-border-radius-bottomright: 20px;
+  -webkit-border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  -moz-border-radius-bottomleft: 20px;
+  -webkit-border-bottom-left-radius: 20px;
+}
+
+div.slide p {
+  font-size: 20px;
+}
+
+.slide.far-past {
+  display: block;
+  margin-left: -2400px;
+}
+
+.slide.past {
+  display: block;
+  margin-left: -1400px;
+}
+
+.slide.current {
+  display: block;
+  margin-left: -450px;
+}
+
+.slide.future {
+  display: block;
+  margin-left: 500px;
+}
+
+.slide.far-future {
+  display: block;
+  margin-left: 1500px;
+}
+
+body.three-d div.slides {
+  -webkit-transform: translateX(50px) scale(0.8) rotateY(10deg);
+  -moz-transform: translateX(50px) scale(0.8) rotateY(10deg);
+  -o-transform: translateX(50px) scale(0.8) rotateY(10deg);
+}
+
+
+/* Content */
+
+header:not(:only-child) {
+  font-family: "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+  font-weight: normal;
+  font-size: 50px;
+  letter-spacing: -.05em;
+  color: white;
+  color: black;
+  text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+  position: absolute;
+  left: 30px;
+  top: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+header h1, header h2, header h3, header h4, header h5, header h6 {
+  display: inline;
+  font-size: 100%;
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+}
+
+header h2:first-child {
+  margin-top: 0;
+}
+
+section, .slide header:only-child h1 {
+  font-family: "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+  color: #3f3f3f;
+  text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 100px;
+  display: block;
+  overflow: hidden;
+}
+
+section img.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+section img.align-right {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+section img.align-left {
+  display: block;
+  margin-right: auto;
+  margin-left: 0;
+}
+
+a {
+  color: inherit;
+  display: inline-block;
+  text-decoration: none;
+  line-height: 110%;
+  border-bottom: 2px solid #3f3f3f;
+}
+
+pre, code, tt {
+  font-family: Monaco, Consolas, 'Bitstream Vera Sans Mono', 'Lucida Console', FreeMono, Courier, monospace;
+}
+
+pre, .gist .gist-file .gist-data {
+  font-size: 18px;
+  max-height: 485px;
+  padding-top: 0.25em !important;
+  padding-right: 0.5em !important;
+  padding-left: 0.5em !important;
+  overflow: auto;
+}
+
+/* render a nice scrollbar in overflowed pre area's */
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: -webkit-gradient(linear, left bottom, left top, from(#777), to(#bbd));
+  -webkit-border-radius: 1ex;
+}
+::-webkit-scrollbar-corner {
+  background: #dedede;
+}
+
+blockquote {
+  border-left: solid 8px #555753;
+  padding: .1ex 1ex;
+  font-style: italic;
+}
+
+li {
+  padding: 10px 0;
+  font-size: 20px;
+}
+
+li pre { margin-left: 0em; }
+
+.slide header:only-child h1 {
+  line-height: 180%;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  height: 700px;
+  width: 900px;
+  font-size: 50px;
+  margin-top:100px;
+  margin-bottom:100px;
+}
+
+.sidebar {
+  background: -webkit-gradient(linear, top right, bottom right, from(#dde), to(#fff));
+  -webkit-transition: margin 0.25s ease-in-out;
+  background-color: #eee;
+  background: -moz-linear-gradient(right, #dde, #fff);
+  border-right: 5px solid #ccd;
+  z-index: 9999999;
+  height: 100%;
+  overflow: hidden;
+  top: 0;
+  position: absolute;
+  display: block;
+  margin: 0;
+  margin-left: -400px;
+  padding: 10px 16px;
+  overflow: auto;
+  -webkit-transition: margin 0.2s ease-in-out;
+  -moz-transition: margin 0.2s ease-in-out;
+  -o-transition: margin 0.2s ease-in-out;
+}
+
+.sidebar h2 {
+  text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.sidebar table {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+}
+
+.sidebar table caption {
+  display: none;
+}
+
+.sidebar tr {
+  margin: 2px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.sidebar th {
+  text-align: left;
+  font-weight: normal;
+  max-width: 300px;
+  overflow: hidden;
+}
+
+.sidebar tr.sub th {
+  text-indent: 20px;
+}
+
+.sidebar td {
+  text-align: right;
+  min-width: 20px;
+}
+
+.sidebar a {
+  display: block;
+  text-decoration: none;
+  border-bottom: none;
+  padding: 4px 0;
+}
+
+.sidebar tr.active {
+  background: #ff0;
+}
+
+aside {
+  display: none;
+}
+  aside.source {
+    position: absolute;
+    bottom: 6px;
+    left: 10px;
+    text-indent: 10px;
+  }
+  aside.page_number {
+    position: absolute;
+    bottom: 6px;
+    right: 10px;
+    text-indent: 10px;
+  }
+
+.notes {
+  display: none;
+  padding: 10px;
+  background: #ccc;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+  div.slide p.notes {
+    font-size: 90%;
+}
+
+/* Expose */
+
+body.expose div.slides {
+  float: left;
+  position: relative;
+  overflow: auto;
+  margin-bottom: 10px;
+}
+
+body.expose div.slide {
+  display: block;
+  float: left;
+  position: relative;
+  left: auto !important;
+  top: auto !important;
+  margin: 10px !important;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;  
+  -moz-transform: scale(.33, .33);
+  -moz-transform-origin: 0 0;
+  -webkit-transform: scale(.33, .33);
+  -webkit-transform-origin: 0 0;
+  -o-transform: scale(.33, .33);
+  -o-transform-origin: 0 0;
+  cursor: pointer;
+}
+
+body.expose div.slide:hover {
+  background: -webkit-gradient(linear, left bottom, left top, from(#bdd), to(#fff));
+  background-color: #eee;
+  background: -moz-linear-gradient(bottom, #bdd, #fff);
+}
+
+body.expose .slide-wrapper {
+  float: left;
+  position: relative;
+  margin: .5%;
+  width: 300px;
+  height: 233px;
+}
+
+body.expose .slide footer {
+}
+
+body.expose .slide .inner {
+}
+
+body.expose .slide.far-past,
+body.expose .slide.past,
+body.expose .slide.future,
+body.expose .slide.far-future {
+  margin-left: 0;
+}
+
+body.expose .slide.current {
+  background: -webkit-gradient(linear, left bottom, left top, from(#ddb), to(#fff));
+  background-color: #eee;
+  background: -moz-linear-gradient(bottom, #ddb, #fff);
+  border: 16px solid #fff;
+  -moz-transform: scale(.315, .315);
+  -moz-transform-origin: 0 0;
+  -webkit-transform: scale(.315, .315);
+  -webkit-transform-origin: 0 0;
+  -o-transform: scale(.315, .315);
+  -o-transform-origin: 0 0;
+}
+
+/* Pygments default theme */
+.hll { background-color: #ffffcc }
+.c { color: #408080; font-style: italic } /* Comment */
+.err { border: 1px solid #FF0000 } /* Error */
+.k { color: #008000; font-weight: bold } /* Keyword */
+.o { color: #666666 } /* Operator */
+.cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.cp { color: #BC7A00 } /* Comment.Preproc */
+.c1 { color: #408080; font-style: italic } /* Comment.Single */
+.cs { color: #408080; font-style: italic } /* Comment.Special */
+.gd { color: #A00000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #FF0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00A000 } /* Generic.Inserted */
+.go { color: #808080 } /* Generic.Output */
+.gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #0040D0 } /* Generic.Traceback */
+.kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #008000 } /* Keyword.Pseudo */
+.kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #B00040 } /* Keyword.Type */
+.m { color: #666666 } /* Literal.Number */
+.s { color: #BA2121 } /* Literal.String */
+.na { color: #7D9029 } /* Name.Attribute */
+.nb { color: #008000 } /* Name.Builtin */
+.nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.no { color: #880000 } /* Name.Constant */
+.nd { color: #AA22FF } /* Name.Decorator */
+.ni { color: #999999; font-weight: bold } /* Name.Entity */
+.ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.nf { color: #0000FF } /* Name.Function */
+.nl { color: #A0A000 } /* Name.Label */
+.nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.nt { color: #008000; font-weight: bold } /* Name.Tag */
+.nv { color: #19177C } /* Name.Variable */
+.ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #666666 } /* Literal.Number.Float */
+.mh { color: #666666 } /* Literal.Number.Hex */
+.mi { color: #666666 } /* Literal.Number.Integer */
+.mo { color: #666666 } /* Literal.Number.Oct */
+.sb { color: #BA2121 } /* Literal.String.Backtick */
+.sc { color: #BA2121 } /* Literal.String.Char */
+.sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.s2 { color: #BA2121 } /* Literal.String.Double */
+.se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.sh { color: #BA2121 } /* Literal.String.Heredoc */
+.si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.sx { color: #008000 } /* Literal.String.Other */
+.sr { color: #BB6688 } /* Literal.String.Regex */
+.s1 { color: #BA2121 } /* Literal.String.Single */
+.ss { color: #19177C } /* Literal.String.Symbol */
+.bp { color: #008000 } /* Name.Builtin.Pseudo */
+.vc { color: #19177C } /* Name.Variable.Class */
+.vg { color: #19177C } /* Name.Variable.Global */
+.vi { color: #19177C } /* Name.Variable.Instance */
+.il { color: #666666 } /* Literal.Number.Integer.Long */
+.lineno { padding-right: 10px } /* A few space after linenos */
+
+/* Presenter Mode */
+
+body.presenter_view div.slide {
+  display: inline;
+  position: absolute;
+  overflow: hidden;
+  -moz-transform: scale(.5, .5);
+  -moz-transform-origin: 0 0;
+  -webkit-transform: scale(.5, .5);
+  -webkit-transform-origin: 0 0;
+  -o-transform: scale(.5, .5);
+  -o-transform-origin: 0 0;
+  margin-top: -300px;
+}
+
+body.presenter_view .slide.far-past {
+  display: block;
+  margin-left: -1500px;
+}
+
+body.presenter_view .slide.past {
+  display: block;
+  margin-left: -975px;
+}
+
+body.presenter_view .slide.current {
+  display: block;
+  margin-left: -475px;
+  border: 8px solid maroon;
+  z-index: 2;
+}
+
+body.presenter_view .slide.future {
+  display: block;
+  margin-left: 25px;
+  z-index: 1;
+}
+
+body.presenter_view .slide.far-future {
+  display: block;
+  margin-left: 525px;
+}
+
+body.presenter_view div#current_presenter_notes {
+  visibility: visible;
+  display: block;
+  position: absolute;
+  overflow: auto;
+  vertical-align: middle;
+  left: 50%;
+  top: 50%;
+  margin-left: -475px;
+  margin-top: 100px;
+  z-index: 2;
+  width: 950px;
+  border-style: solid;
+  height: 30%;
+  background-color: silver;
+}
+
+body.presenter_view div#current_presenter_notes section {
+  font-family: "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+  color: black;
+  text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+  display: block;
+  overflow: visible;
+  position: relative;
+  background-color: #fffeff;
+  height: 120px;
+  margin-right: 30px;
+  margin-top: 60px;
+  margin-left: 30px;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+body.presenter_view div#current_presenter_notes section p {
+  margin: 0;
+}
+
+body.presenter_view div#current_presenter_notes h1 {
+  font-size: 50%;
+  display: block;
+}
+
+div#current_presenter_notes {
+  display: none;
+}
+
+div.slide div.presenter_notes {
+  display: none;
+}
+
+#blank {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  z-index: 64;
+  display: none;
+}
+
+    </style>
+    
+    
+      
+      <style type="text/css" media="screen, projection">
+        code {
+    font-size: 26px;
+}
+
+header code {
+    font-size: 40px;
+}
+
+pre {
+    font-size: 21px;
+    margin-top: 0em !important;
+    padding-top: 0em !important;
+}
+
+div.slides {
+    font-size: 180%;
+}
+
+div.slides ol,ul {
+    font-size: 100% !important;
+    margin-left: 1.25em;
+    margin-top: -1.5em;
+    line-height: 1.25em;
+}
+
+.center {
+    text-align: center !important;
+}
+
+.normalf {
+    font-size: 110% !important;
+}
+
+.larger {
+    font-size: 140% !important;
+}
+
+.large {
+    font-size: 180% !important;
+}
+
+.huge {
+    font-size: 260% !important;
+}
+
+.evenlessspacebefore {
+    margin-top: -1.5em;
+}
+
+.lessspacebefore {
+    margin-top: -1.0em;
+}
+
+.lesserspacebefore {
+    margin-top: -0.75em;
+}
+
+.evenlessspaceafter {
+    margin-bottom: 0em;
+}
+
+.lessspaceafter {
+    margin-bottom: 0.5em;
+}
+
+.lesserspaceafter {
+    margin-bottom: 1.0em;
+}
+
+p, li {
+    font-size: 115% !important;
+}
+
+li {
+    line-height: 1.2em;
+}
+
+p {
+    line-height: 1.7em;
+    margin-bottom: 1.25em;
+}
+
+.highline {
+    line-height: 1.5em;
+}
+
+.lowline {
+    line-height: 1.25em;
+}
+
+.medline {
+    line-height: 1.375em;
+}
+
+.quitesmaller {
+    font-size: 100% !important;
+}
+
+.smaller {
+    font-size: 90% !important;
+}
+
+.small {
+    font-size: 70% !important;
+}
+
+.note {
+    position: absolute;
+    bottom: 1em;
+    right: 10px;
+    line-height: 1em;
+    margin: 0.1em;
+}
+
+strong,em {
+    color: #204a87 !important;
+}
+
+code {
+    color: #002a67 !important;
+}
+
+blockquote>p {
+    margin: 0px;
+}
+
+div.slide table {
+    min-width: 40%;
+    text-align: center;
+    font-size: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.slide td {
+    width: 20%;
+}
+
+div.slide th {
+    border-bottom: solid 4px #555753;
+}
+
+div.slide table tr:nth-child(odd) td{
+    background-color: #CCCCCC;
+}
+
+div.slide h1:not(only-child) {
+    font-size: 140%;
+}
+
+
+      </style>
+      
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script>
+      function main() {
+    // Since we don't have the fallback of attachEvent and
+    // other IE only stuff we won't try to run JS for IE.
+    // It will run though when using Google Chrome Frame
+    if (document.all) { return; }
+
+    var currentSlideNo;
+    var notesOn = false;
+    var expanded = false;
+    var hiddenContext = false;
+    var blanked = false;
+    var slides = document.getElementsByClassName('slide');
+    var touchStartX = 0;
+    var spaces = /\s+/, a1 = [''];
+    var tocOpened = false;
+    var helpOpened = false;
+    var overviewActive = false;
+    var modifierKeyDown = false;
+    var scale = 1;
+    var showingPresenterView = false;
+    var presenterViewWin = null;
+    var isPresenterView = false;
+
+    var str2array = function(s) {
+        if (typeof s == 'string' || s instanceof String) {
+            if (s.indexOf(' ') < 0) {
+                a1[0] = s;
+                return a1;
+            } else {
+                return s.split(spaces);
+            }
+        }
+        return s;
+    };
+
+    var trim = function(str) {
+        return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    };
+
+    var addClass = function(node, classStr) {
+        classStr = str2array(classStr);
+        var cls = ' ' + node.className + ' ';
+        for (var i = 0, len = classStr.length, c; i < len; ++i) {
+            c = classStr[i];
+            if (c && cls.indexOf(' ' + c + ' ') < 0) {
+                cls += c + ' ';
+            }
+        }
+        node.className = trim(cls);
+    };
+
+    var removeClass = function(node, classStr) {
+        var cls;
+        if (!node) {
+            throw 'no node provided';
+        }
+        if (classStr !== undefined) {
+            classStr = str2array(classStr);
+            cls = ' ' + node.className + ' ';
+            for (var i = 0, len = classStr.length; i < len; ++i) {
+                cls = cls.replace(' ' + classStr[i] + ' ', ' ');
+            }
+            cls = trim(cls);
+        } else {
+            cls = '';
+        }
+        if (node.className != cls) {
+            node.className = cls;
+        }
+    };
+
+    var getSlideEl = function(slideNo) {
+        if (slideNo > 0) {
+            return slides[slideNo - 1];
+        } else {
+            return null;
+        }
+    };
+
+    var getSlideTitle = function(slideNo) {
+        var el = getSlideEl(slideNo);
+        if (el) {
+            var headers = el.getElementsByTagName('header');
+            if (headers.length > 0) {
+                return el.getElementsByTagName('header')[0].innerText;
+            }
+        }
+        return null;
+    };
+
+    var getSlidePresenterNote = function(slideNo) {
+        var el = getSlideEl(slideNo);
+        if (el) {
+            var n = el.getElementsByClassName('presenter_notes');
+            if (n.length > 0) {
+                return n[0];
+            }
+        }
+        return null;
+    };
+
+    var changeSlideElClass = function(slideNo, className) {
+        var el = getSlideEl(slideNo);
+        if (el) {
+            removeClass(el, 'far-past past current future far-future');
+            addClass(el, className);
+        }
+    };
+
+    var updateSlideClasses = function(updateOther) {
+        window.location.hash = (isPresenterView ? "presenter" : "slide") + currentSlideNo;
+
+        for (var i=1; i<currentSlideNo-1; i++) {
+            changeSlideElClass(i, 'far-past');
+        }
+
+        changeSlideElClass(currentSlideNo - 1, 'past');
+        changeSlideElClass(currentSlideNo, 'current');
+        changeSlideElClass(currentSlideNo + 1, 'future');
+
+        for (i=currentSlideNo+2; i<slides.length+1; i++) {
+            changeSlideElClass(i, 'far-future');
+        }
+
+        highlightCurrentTocLink();
+
+        processContext();
+
+        document.getElementsByTagName('title')[0].innerText = getSlideTitle(currentSlideNo);
+
+        updatePresenterNotes();
+
+        if (updateOther) { updateOtherPage(); }
+    };
+
+    var updatePresenterNotes = function() {
+        if (!isPresenterView) { return; }
+
+        var existingNote = document.getElementById('current_presenter_notes');
+        var currentNote = getSlidePresenterNote(currentSlideNo).cloneNode(true);
+        currentNote.setAttribute('id', 'presenter_note');
+
+        existingNote.replaceChild(currentNote, document.getElementById('presenter_note'));
+    };
+
+    var highlightCurrentTocLink = function() {
+        var toc = document.getElementById('toc');
+
+        if (toc) {
+            var tocRows = toc.getElementsByTagName('tr');
+            for (var i=0; i<tocRows.length; i++) {
+                removeClass(tocRows.item(i), 'active');
+            }
+
+            var currentTocRow = document.getElementById('toc-row-' + currentSlideNo);
+            if (currentTocRow) {
+                addClass(currentTocRow, 'active');
+            }
+        }
+    };
+
+    var updateOtherPage = function() {
+        if (!showingPresenterView) { return; }
+
+        var w = isPresenterView ? window.opener : presenterViewWin;
+        w.postMessage('slide#' + currentSlideNo, '*');
+    };
+
+    var nextSlide = function() {
+        if (currentSlideNo < slides.length) {
+            currentSlideNo++;
+        }
+        updateSlideClasses(true);
+    };
+
+    var prevSlide = function() {
+        if (currentSlideNo > 1) {
+            currentSlideNo--;
+        }
+        updateSlideClasses(true);
+    };
+
+    var showNotes = function() {
+        var notes = getSlideEl(currentSlideNo).getElementsByClassName('notes');
+        for (var i = 0, len = notes.length; i < len; i++) {
+            notes.item(i).style.display = (notesOn) ? 'none':'block';
+        }
+        notesOn = !notesOn;
+    };
+
+    var showSlideNumbers = function() {
+        var asides = document.getElementsByClassName('page_number');
+        var hidden = asides[0].style.display != 'block';
+        for (var i = 0; i < asides.length; i++) {
+            asides.item(i).style.display = hidden ? 'block' : 'none';
+        }
+    };
+
+    var showSlideSources = function() {
+        var asides = document.getElementsByClassName('source');
+        var hidden = asides[0].style.display != 'block';
+        for (var i = 0; i < asides.length; i++) {
+            asides.item(i).style.display = hidden ? 'block' : 'none';
+        }
+    };
+
+    var showToc = function() {
+        if (helpOpened) {
+                showHelp();
+        }
+        var toc = document.getElementById('toc');
+        if (toc) {
+            toc.style.marginLeft = tocOpened ? '-' + (toc.clientWidth + 20) + 'px' : '0px';
+            tocOpened = !tocOpened;
+        }
+        updateOverview();
+    };
+
+    var showHelp = function() {
+        if (tocOpened) {
+                showToc();
+        }
+
+        var help = document.getElementById('help');
+
+        if (help) {
+            help.style.marginLeft = helpOpened ? '-' + (help.clientWidth + 20) + 'px' : '0px';
+            helpOpened = !helpOpened;
+        }
+    };
+
+    var showPresenterView = function() {
+        if (isPresenterView) { return; }
+
+        if (showingPresenterView) {
+            presenterViewWin.close();
+            presenterViewWin = null;
+            showingPresenterView = false;
+        } else {
+            presenterViewWin = open(window.location.pathname + "#presenter" + currentSlideNo, 'presenter_notes',
+                                                                    'directories=no,location=no,toolbar=no,menubar=no,copyhistory=no');
+            showingPresenterView = true;
+        }
+    };
+
+    var switch3D = function() {
+        if (document.body.className.indexOf('three-d') == -1) {
+            document.getElementsByClassName('presentation')[0].style.webkitPerspective = '1000px';
+            document.body.className += ' three-d';
+        } else {
+            window.setTimeout('document.getElementsByClassName(\'presentation\')[0].style.webkitPerspective = \'0\';', 2000);
+            document.body.className = document.body.className.replace(/three-d/, '');
+        }
+    };
+
+    var toggleOverview = function() {
+        if (!overviewActive) {
+            addClass(document.body, 'expose');
+            overviewActive = true;
+            setScale(1);
+        } else {
+            removeClass(document.body, 'expose');
+            overviewActive = false;
+            if (expanded) {
+                setScale(scale);    // restore scale
+            }
+        }
+        processContext();
+        updateOverview();
+    };
+
+    var updateOverview = function() {
+        try {
+            var presentation = document.getElementsByClassName('presentation')[0];
+        } catch (e) {
+            return;
+        }
+
+        if (isPresenterView) {
+            var action = overviewActive ? removeClass : addClass;
+            action(document.body, 'presenter_view');
+        }
+
+        var toc = document.getElementById('toc');
+
+        if (!toc) {
+            return;
+        }
+
+        if (!tocOpened || !overviewActive) {
+            presentation.style.marginLeft = '0px';
+            presentation.style.width = '100%';
+        } else {
+            presentation.style.marginLeft = toc.clientWidth + 'px';
+            presentation.style.width = (presentation.clientWidth - toc.clientWidth) + 'px';
+        }
+    };
+
+    var computeScale = function() {
+        var cSlide = document.getElementsByClassName('current')[0];
+        var sx = cSlide.clientWidth / window.innerWidth;
+        var sy = cSlide.clientHeight / window.innerHeight;
+        return 1 / Math.max(sx, sy);
+    };
+
+    var setScale = function(scale) {
+        var presentation = document.getElementsByClassName('slides')[0];
+        var transform = 'scale(' + scale + ')';
+        presentation.style.MozTransform = transform;
+        presentation.style.WebkitTransform = transform;
+        presentation.style.OTransform = transform;
+        presentation.style.msTransform = transform;
+        presentation.style.transform = transform;
+    };
+
+    var expandSlides = function() {
+        if (overviewActive) {
+            return;
+        }
+        if (expanded) {
+            setScale(1);
+            expanded = false;
+        } else {
+            scale = computeScale();
+            setScale(scale);
+            expanded = true;
+        }
+    };
+
+    var showContext = function() {
+        try {
+            var presentation = document.getElementsByClassName('slides')[0];
+            removeClass(presentation, 'nocontext');
+        } catch (e) {}
+    };
+
+    var hideContext = function() {
+        try {
+            var presentation = document.getElementsByClassName('slides')[0];
+            addClass(presentation, 'nocontext');
+        } catch (e) {}
+    };
+
+    var processContext = function() {
+        if (hiddenContext) {
+            hideContext();
+        } else {
+            showContext();
+        }
+    };
+
+    var toggleContext = function() {
+        hiddenContext = !hiddenContext;
+        processContext();
+    };
+
+    var toggleBlank = function() {
+        blank_elem = document.getElementById('blank');
+
+        blank_elem.style.display = blanked ? 'none' : 'block';
+
+        blanked = !blanked;
+    };
+
+    var isModifierKey = function(keyCode) {
+        switch (keyCode) {
+            case 16: // shift
+            case 17: // ctrl
+            case 18: // alt
+            case 91: // command
+                return true;
+                break;
+            default:
+                return false;
+                break;
+        }
+    };
+
+    var checkModifierKeyUp = function(event) {
+        if (isModifierKey(event.keyCode)) {
+            modifierKeyDown = false;
+        }
+    };
+
+    var checkModifierKeyDown = function(event) {
+        if (isModifierKey(event.keyCode)) {
+            modifierKeyDown = true;
+        }
+    };
+
+    var handleBodyKeyDown = function(event) {
+        switch (event.keyCode) {
+            case 13: // Enter
+                if (overviewActive) {
+                    toggleOverview();
+                }
+                break;
+            case 27: // ESC
+                toggleOverview();
+                break;
+            case 37: // left arrow
+            case 33: // page up
+                event.preventDefault();
+                prevSlide();
+                break;
+            case 39: // right arrow
+            case 32: // space
+            case 34: // page down
+                event.preventDefault();
+                nextSlide();
+                break;
+            case 50: // 2
+                if (!modifierKeyDown) {
+                        showNotes();
+                }
+                break;
+            case 51: // 3
+                if (!modifierKeyDown && !overviewActive) {
+                    switch3D();
+                }
+                break;
+            case 190: // .
+            case 48: // 0
+            case 66: // b
+                if (!modifierKeyDown && !overviewActive) {
+                    toggleBlank();
+                }
+                break;
+            case 67: // c
+                if (!modifierKeyDown && !overviewActive) {
+                    toggleContext();
+                }
+                break;
+            case 69: // e
+                if (!modifierKeyDown && !overviewActive) {
+                    expandSlides();
+                }
+                break;
+            case 72: // h
+                showHelp();
+                break;
+            case 78: // n
+                if (!modifierKeyDown && !overviewActive) {
+                    showSlideNumbers();
+                }
+                break;
+            case 80: // p
+                if (!modifierKeyDown && !overviewActive) {
+                    showPresenterView();
+                }
+                break;
+            case 83: // s
+                if (!modifierKeyDown && !overviewActive) {
+                    showSlideSources();
+                }
+                break;
+            case 84: // t
+                showToc();
+                break;
+        }
+    };
+
+    var handleWheel = function(event) {
+        if (tocOpened || helpOpened || overviewActive) {
+            return;
+        }
+
+        var delta = 0;
+
+        if (!event) {
+            event = window.event;
+        }
+
+        if (event.wheelDelta) {
+            delta = event.wheelDelta/120;
+            if (window.opera) delta = -delta;
+        } else if (event.detail) {
+            delta = -event.detail/3;
+        }
+
+        if (delta && delta <0) {
+            nextSlide();
+        } else if (delta) {
+            prevSlide();
+        }
+    };
+
+    var addSlideClickListeners = function() {
+        for (var i=0; i < slides.length; i++) {
+            var slide = slides.item(i);
+            slide.num = i + 1;
+            slide.addEventListener('click', function(e) {
+                if (overviewActive) {
+                    currentSlideNo = this.num;
+                    toggleOverview();
+                    updateSlideClasses(true);
+                    e.preventDefault();
+                }
+                return false;
+            }, true);
+        }
+    };
+
+    var addRemoteWindowControls = function() {
+        window.addEventListener("message", function(e) {
+            if (e.data.indexOf("slide#") != -1) {
+                    currentSlideNo = Number(e.data.replace('slide#', ''));
+                    updateSlideClasses(false);
+            }
+        }, false);
+    };
+
+    var addTouchListeners = function() {
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].pageX;
+        }, false);
+        document.addEventListener('touchend', function(e) {
+            var pixelsMoved = touchStartX - e.changedTouches[0].pageX;
+            var SWIPE_SIZE = 150;
+            if (pixelsMoved > SWIPE_SIZE) {
+                nextSlide();
+            }
+            else if (pixelsMoved < -SWIPE_SIZE) {
+             prevSlide();
+            }
+        }, false);
+    };
+
+    var addTocLinksListeners = function() {
+        var toc = document.getElementById('toc');
+        if (toc) {
+            var tocLinks = toc.getElementsByTagName('a');
+            for (var i=0; i < tocLinks.length; i++) {
+                tocLinks.item(i).addEventListener('click', function(e) {
+                    currentSlideNo = Number(this.attributes['href'].value.replace('#slide', ''));
+                    updateSlideClasses(true);
+                    e.preventDefault();
+                }, true);
+            }
+        }
+    };
+
+    // initialize
+
+    (function() {
+        if (window.location.hash == "") {
+            currentSlideNo = 1;
+        } else if (window.location.hash.indexOf("#presenter") != -1) {
+            currentSlideNo = Number(window.location.hash.replace('#presenter', ''));
+            isPresenterView = true;
+            showingPresenterView = true;
+            presenterViewWin = window;
+            addClass(document.body, 'presenter_view');
+        } else {
+            currentSlideNo = Number(window.location.hash.replace('#slide', ''));
+        }
+
+        document.addEventListener('keyup', checkModifierKeyUp, false);
+        document.addEventListener('keydown', handleBodyKeyDown, false);
+        document.addEventListener('keydown', checkModifierKeyDown, false);
+        document.addEventListener('DOMMouseScroll', handleWheel, false);
+
+        window.onmousewheel = document.onmousewheel = handleWheel;
+        window.onresize = expandSlides;
+
+        for (var i = 0, el; el = slides[i]; i++) {
+            addClass(el, 'slide far-future');
+        }
+        updateSlideClasses(false);
+
+        // add support for finger events (filter it by property detection?)
+        addTouchListeners();
+
+        addTocLinksListeners();
+
+        addSlideClickListeners();
+
+        addRemoteWindowControls();
+    })();
+}
+
+    </script>
+    
+    
+      
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML.js"></script>
+      
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: slides_src/frontpage.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Elementi di programmazione in C</h1></header>
+            
+            
+            <section><p class="larger">&nbsp;<br />
+&nbsp;<br />
+<em>Yuri Pirola</em><br /></p>
+<p class="smaller">E-mail: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#121;&#117;&#114;&#105;&#46;&#112;&#105;&#114;&#111;&#108;&#97;&#64;&#100;&#105;&#115;&#99;&#111;&#46;&#117;&#110;&#105;&#109;&#105;&#98;&#46;&#105;&#116;">&#121;&#117;&#114;&#105;&#46;&#112;&#105;&#114;&#111;&#108;&#97;&#64;&#100;&#105;&#115;&#99;&#111;&#46;&#117;&#110;&#105;&#109;&#105;&#98;&#46;&#105;&#116;</a><br />
+Personal web-page: <a href="http://algolab.eu/pirola">http://algolab.eu/pirola</a><br />
+Slides: <a href="http://yp.github.com/ProgrC-PTP-2013">http://yp.github.com/ProgrC-PTP-2013</a><br />
+Materiale: <a href="https://github.com/yp/ProgrC-PTP-2013">https://github.com/yp/ProgrC-PTP-2013</a><br /></p>
+<p>&nbsp;<br />
+Marzo 2013 - Parco Tecnologico Padano</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/frontpage.md">slides_src/frontpage.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-array.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Array in C</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-array.md">slides_src/c-array.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-array.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Tipi non primitivi - Array</h2></header>
+            
+            
+            <section><p><strong>Tipo non primitivo:</strong> tipo ottenuto da altri tipi (primitivi o non) mediante costrutti di composizione resi disponibili dal linguaggio.</p>
+<p class="larger center lesserspacebefore"><strong>Array</strong><br /></p>
+<p class="lessspacebefore"><em>Sequenza di elementi aventi lo stesso tipo</em> (primitivo o non).<br />
+Ogni elemento è <em>univocamente identificabile</em> in base alla sua posizione nella sequenza.<br /></p>
+<p><img alt="array" src="data:image/png;base64,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" /></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-array.md">slides_src/c-array.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-array.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Dichiarazione di un array</h2></header>
+            
+            
+            <section><p><em>Sintassi:</em></p>
+<div class="highlight"><pre><span class="o">&lt;</span><span class="n">tipoBase</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">nomeArray</span><span class="o">&gt;</span><span class="p">[</span><span class="o">&lt;</span><span class="n">lunghezza</span><span class="o">&gt;</span><span class="p">];</span>
+</pre></div>
+
+<p><em>Semantica:</em><br />
+Crea una variabile di nome <code>&lt;nomeArray&gt;</code> di tipo array di <code>&lt;tipoBase&gt;</code> di dimensione <code>&lt;lunghezza&gt;</code> (non inizializzato).</p>
+<p class="lessspaceafter"><em>Esempio:</em><br /></p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+<span class="kt">double</span> <span class="n">x</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-array.md">slides_src/c-array.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-array.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Dichiarazione con inizializzazione</h2></header>
+            
+            
+            <section><p>La <em>dichiarazione con inizializzazione</em> è:</p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="n">vettore</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">=</span> <span class="p">{};</span>  <span class="c1">// Azzera il vettore</span>
+
+<span class="kt">char</span> <span class="n">parola</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">=</span> <span class="p">{</span><span class="sc">&#39;c&#39;</span><span class="p">,</span> <span class="sc">&#39;i&#39;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;o&#39;</span><span class="p">,</span> <span class="sc">&#39;\0&#39;</span><span class="p">};</span>
+
+<span class="kt">int</span> <span class="n">riga</span><span class="p">[]</span><span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">};</span>
+</pre></div>
+
+<p>La dimensione può essere omessa perché viene dedotta dal numero di valori iniziali (<code>5</code> in questo caso).</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-array.md">slides_src/c-array.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-array.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Accedere a un elemento</h2></header>
+            
+            
+            <section><p>L'operatore <code>[]</code> consente l'accesso (per posizione) agli elementi dell'array.</p>
+<p><em>Il primo elemento è in posizione <code>0</code>!!</em></p>
+<div class="highlight"><pre><span class="kt">char</span> <span class="n">parola</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">=</span> <span class="p">{</span><span class="sc">&#39;c&#39;</span><span class="p">,</span> <span class="sc">&#39;i&#39;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;o&#39;</span><span class="p">,</span> <span class="sc">&#39;\0&#39;</span><span class="p">};</span>
+
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">parola</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>  <span class="c1">// Stampa: a</span>
+
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">parola</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>  <span class="c1">// Stampa: c</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-array.md">slides_src/c-array.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-array.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>"Scorrere" un array</h2></header>
+            
+            
+            <section><p>Per "scorrere" gli elementi di un array si usa (solitamente) un ciclo <code>for</code></p>
+<p class="lesserspacebefore lessspaceafter"><em>Esempio:</em><br /></p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="n">riga</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">};</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">5</span> <span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Elemento %d-esimo: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">riga</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">}</span>
+</pre></div>
+
+<p class="lessspaceafter"><em>Output:</em><br /></p>
+<div class="highlight"><pre><span class="n">Elemento</span> <span class="n">di</span> <span class="n">posto</span> <span class="mi">0</span><span class="o">:</span> <span class="mi">1</span>
+<span class="n">Elemento</span> <span class="n">di</span> <span class="n">posto</span> <span class="mi">1</span><span class="o">:</span> <span class="mi">5</span>
+<span class="n">Elemento</span> <span class="n">di</span> <span class="n">posto</span> <span class="mi">2</span><span class="o">:</span> <span class="mi">0</span>
+<span class="n">Elemento</span> <span class="n">di</span> <span class="n">posto</span> <span class="mi">3</span><span class="o">:</span> <span class="mi">4</span>
+<span class="n">Elemento</span> <span class="n">di</span> <span class="n">posto</span> <span class="mi">4</span><span class="o">:</span> <span class="mi">1</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-array.md">slides_src/c-array.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-array.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Assegnamento di array</h2></header>
+            
+            
+            <section><p>L'operatore di assegnamento su variabili array è lecito ma <em><strong>non</strong> fa quello che noi pensiamo/vorremmo!</em></p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="n">arr_A</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>
+
+<span class="kt">int</span> <span class="n">arr_B</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">=</span> <span class="n">arr_A</span><span class="p">;</span>         <span class="c1">// NO !!!</span>
+</pre></div>
+
+<p>Per la <strong>copia</strong> di un array, dobbiamo usare un <em>ciclo</em>.</p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="n">arr_A</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>
+
+<span class="kt">int</span> <span class="n">arr_B</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">4</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">arr_B</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span> <span class="n">arr_A</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>      <span class="c1">// OK !!!</span>
+<span class="p">}</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-array.md">slides_src/c-array.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-array.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Array multi-dimensionali</h2></header>
+            
+            
+            <section><p class="lessspaceafter"><em>Sintassi:</em><br /></p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="n">matrice</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span> <span class="p">},</span>
+                      <span class="p">{</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="p">...</span> <span class="p">},</span>
+                      <span class="p">...</span>  <span class="p">};</span>
+</pre></div>
+
+<p class="smaller"><em>Memorizzazione:</em> "latest index is the fastest"<br /></p>
+<p><img alt="arraydim" src="data:image/png;base64,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" style="width: 50%;" /></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-array.md">slides_src/c-array.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-array.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Array multi-dimensionali</h2></header>
+            
+            
+            <section><p><em>Indicizzazione di elementi:</em></p>
+<div class="highlight"><pre><span class="c1">// Dichiarazione</span>
+<span class="kt">int</span> <span class="n">tab</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span><span class="o">=</span> <span class="p">{{</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span>  <span class="mi">4</span><span class="p">},</span>
+                <span class="p">{</span> <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span>  <span class="mi">7</span><span class="p">,</span>  <span class="mi">8</span><span class="p">},</span>
+                <span class="p">{</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">}};</span>
+
+<span class="c1">// Uso/indicizzazione</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">tab</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">],</span> <span class="n">tab</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span>
+<span class="c1">// Cosa stampa?</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-array.md">slides_src/c-array.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-array.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Funzioni con parametri array</h2></header>
+            
+            
+            <section><p>Posso definire funzioni con parametri di tipo array:</p>
+<div class="highlight"><pre><span class="p">...</span>          <span class="c1">// Devo specificare la lunghezza di</span>
+             <span class="c1">// tutte le dimensioni tranne la prima</span>
+<span class="kt">int</span> <span class="n">somma_array</span><span class="p">(</span><span class="kt">int</span> <span class="n">array</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">somma</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">somma</span> <span class="o">+=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">somma</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">...</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="kt">int</span> <span class="n">v</span><span class="p">[]</span><span class="o">=</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">};</span>
+    <span class="p">...</span>
+    <span class="kt">int</span> <span class="n">somma</span><span class="o">=</span> <span class="n">somma_array</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">l</span><span class="p">);</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-array.md">slides_src/c-array.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-array.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Stringhe</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-array.md">slides_src/c-array.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-array.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Stringhe</h2></header>
+            
+            
+            <section><p><strong>Stringhe=</strong> array di caratteri (<code>char</code>).</p>
+<div class="highlight"><pre><span class="c1">// Questa è una stringa</span>
+<span class="kt">char</span> <span class="n">parola</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">=</span> <span class="p">{</span><span class="sc">&#39;c&#39;</span><span class="p">,</span> <span class="sc">&#39;i&#39;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;o&#39;</span><span class="p">,</span> <span class="sc">&#39;\0&#39;</span><span class="p">};</span>
+</pre></div>
+
+<p>Inizializzazione "privilegiata":</p>
+<div class="highlight"><pre><span class="kt">char</span> <span class="n">parola</span><span class="p">[]</span><span class="o">=</span> <span class="s">&quot;ciao&quot;</span><span class="p">;</span> <span class="c1">// &quot;ciao&quot; è una costante</span>
+                       <span class="c1">// letterale</span>
+</pre></div>
+
+<p><strong>Non</strong> funziona come assegnamento!</p>
+<div class="highlight"><pre><span class="kt">char</span> <span class="n">parola</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">=</span> <span class="s">&quot;pippo&quot;</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="n">parola</span><span class="o">=</span> <span class="s">&quot;pluto&quot;</span><span class="p">;</span>  <span class="c1">// NO !!!</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-array.md">slides_src/c-array.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-array.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Memorizzazione di stringhe</h2></header>
+            
+            
+            <section><p>La dimensione dell'array (di <code>char</code>) specifica la <strong>lunghezza massima</strong> della stringa, ma posso inserirvi stringhe più corte!</p>
+<div class="highlight"><pre><span class="kt">char</span> <span class="n">stringa</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">=</span> <span class="s">&quot;ciao&quot;</span><span class="p">;</span>
+</pre></div>
+
+<p>Per <em>convenzione</em> ciascuna stringa è terminata con il <em>carattere speciale</em> <code>'\0'</code>.</p>
+<p><img alt="stringa" src="data:image/png;base64,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" /></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-array.md">slides_src/c-array.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-array.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>I/O di stringhe</h2></header>
+            
+            
+            <section><p>La <code>fprintf</code> e la <code>fscanf</code> trattano nativamente le stringhe mediante il segnaposto <code>%s</code>.</p>
+<p><em>Esempio:</em></p>
+<div class="highlight"><pre><span class="kt">char</span> <span class="n">nome</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;Come ti chiami? &quot;</span><span class="p">);</span>
+
+<span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span> <span class="n">nome</span><span class="p">);</span>          <span class="c1">// Le stringhe *non* vogliono &amp;</span>
+
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;Ciao, %s!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">nome</span><span class="p">);</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-array.md">slides_src/c-array.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-array.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Funzioni su stringhe</h2></header>
+            
+            
+            <section><p>Le stringhe sono array <em>privilegiati</em>.</p>
+<p>Header <code>&lt;string.h&gt;</code>: (<a href="http://www.cplusplus.com/reference/cstring/">documentazione</a>)</p>
+<ul>
+<li><code>strlen(s)</code>: restituisce la lunghezza (effettiva) della stringa <code>s</code></li>
+<li><code>strcpy(dst, src)</code>: copia la stringa <code>src</code> nella stringa <code>dst</code></li>
+<li><code>strcat(s1, s2)</code>: "aggiunge" (concatena) la stringa <code>s2</code> al termine della stringa <code>s1</code></li>
+</ul>
+<p class="center larger"><em>Attenzione alle dimensioni!!</em><br /></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-array.md">slides_src/c-array.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              16/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-array.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Funzioni su stringhe</h2></header>
+            
+            
+            <section><p><em>Esempio:</em></p>
+<div class="highlight"><pre><span class="kt">char</span> <span class="n">s1</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span><span class="o">=</span> <span class="s">&quot;Ciao&quot;</span><span class="p">;</span>
+<span class="kt">char</span> <span class="n">s2</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span><span class="o">=</span> <span class="s">&quot;Mario&quot;</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="n">s1len</span><span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">s1</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;La stringa &#39;%s&#39; è di %d caratteri.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s1len</span><span class="p">);</span>
+
+<span class="n">strcat</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="s">&quot; da &quot;</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;La stringa s1 ora è &#39;%s&#39;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">s1</span><span class="p">);</span>
+
+<span class="n">strcpy</span><span class="p">(</span><span class="n">s2</span><span class="p">,</span> <span class="s">&quot;Pippo&quot;</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;La stringa s2 ora è &#39;%s&#39;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">s2</span><span class="p">);</span>
+
+<span class="n">strcat</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;La stringa s1 ora è &#39;%s&#39;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">s1</span><span class="p">);</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-array.md">slides_src/c-array.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              17/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-array.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Confronto di stringhe</h2></header>
+            
+            
+            <section><p>Gli operatori relazionali <code>&lt;</code>, <code>&lt;=</code>, <code>==</code>, <code>!=</code>, <code>&gt;=</code>, <code>&gt;</code> <strong>non funzionano</strong> con le stringhe! (non fanno quel che vorremmo)</p>
+<p>Si deve usare la funzione <code>strcmp</code> (header <code>&lt;string.h&gt;</code>):</p>
+<div class="highlight"><pre><span class="kt">char</span> <span class="n">s1</span><span class="p">[]</span><span class="o">=</span> <span class="s">&quot;Pippo&quot;</span><span class="p">;</span>
+<span class="kt">char</span> <span class="n">s2</span><span class="p">[]</span><span class="o">=</span> <span class="s">&quot;Pluto&quot;</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="n">cmp</span><span class="o">=</span> <span class="n">strcmp</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">);</span>
+<span class="c1">// cmp == 0 --&gt; s1 = s2</span>
+<span class="c1">// cmp &lt;  0 --&gt; s1 &lt; s2</span>
+<span class="c1">// cmp &gt;  0 --&gt; s1 &gt; s2</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-array.md">slides_src/c-array.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              18/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-array.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Esercizi</h2></header>
+            
+            
+            <section><p>Scrivere un programma che legge una parola da terminale e determina se contiene più lettere <code>'a'</code> o più lettere <code>'b'</code>.</p>
+<p>Scrivere un programma che legge una parola da terminale e determina se è <em>palindroma</em>.</p>
+<p>Scrivere un programma che legge una parola da terminale e determina se contiene lettere ripetute.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-array.md">slides_src/c-array.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              19/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-puntatori.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>I puntatori</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-puntatori.md">slides_src/c-puntatori.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              20/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-puntatori.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Tipi non primitivi - Puntatori</h2></header>
+            
+            
+            <section><p class="larger center lessspaceafter"><strong>Puntatore</strong><br /></p>
+<p>Variabile che contiene l'<em>indirizzo</em> di memoria di un'altra variabile.</p>
+<p class="lessspaceafter"><em>Sintassi:</em><br /></p>
+<div class="highlight"><pre><span class="o">&lt;</span><span class="n">tipo</span><span class="o">&gt;</span> <span class="o">*</span> <span class="o">&lt;</span><span class="n">identificatore</span><span class="o">&gt;</span><span class="p">;</span>
+</pre></div>
+
+<p><em>Semantica:</em><br />
+Crea una variabile con nome <code>&lt;identificatore&gt;</code> di tipo <em>puntatore a <code>&lt;tipo&gt;</code></em>.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-puntatori.md">slides_src/c-puntatori.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              21/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-puntatori.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Puntatori - "indirizzo di"</h2></header>
+            
+            
+            <section><p>L'operatore prefisso <code>&amp;</code> (chiamato: <em>indirizzo di</em>) applicato a una <em>variabile</em> ne restituisce l'indirizzo.</p>
+<p><em>Esempio:</em></p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="n">a</span><span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="kt">int</span> <span class="o">*</span> <span class="n">ptr</span><span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+</pre></div>
+
+<p><img alt="ptr" src="data:image/png;base64,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" style="position: absolute; right: 10em; top: 10em;" /></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-puntatori.md">slides_src/c-puntatori.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              22/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-puntatori.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Puntatori - "dereferenziamento"</h2></header>
+            
+            
+            <section><p>L'operatore prefisso <code>*</code> (chiamato: <em>dereferenziamento</em>) applicato a un <em>puntatore</em> ne restituisce la variabile puntata.</p>
+<p><em>Esempio:</em></p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="n">a</span><span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="kt">int</span> <span class="o">*</span> <span class="n">ptr</span><span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">b</span><span class="o">=</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>  <span class="c1">// b ora vale 5</span>
+
+<span class="o">*</span><span class="n">ptr</span><span class="o">=</span> <span class="mi">7</span><span class="p">;</span>      <span class="c1">// a ora vale 7</span>
+              <span class="c1">// ptr non cambia!</span>
+</pre></div>
+
+<p><img alt="ptr" src="data:image/png;base64,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" style="position: absolute; right: 6em; top: 9em;" /></p>
+<p>&nbsp;<br />
+L'operatore <code>*</code> si legge "la variabile puntata da".</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-puntatori.md">slides_src/c-puntatori.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              23/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-puntatori.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Puntatori - problemi comuni</h2></header>
+            
+            
+            <section><p>Il simbolo <code>*</code> ha due significati:</p>
+<ul>
+<li>in una <em>dichiarazione</em>, dichiara una variabile puntatore<br />
+  (es: <code>int * ptr;</code>)</li>
+<li>in un'<em>espressione</em>, restituisce la variabile puntata<br />
+  (es: <code>*p= 10;</code>)</li>
+</ul>
+<p class="larger">I puntatori vanno <strong>sempre</strong> inizializzati!!<br /></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-puntatori.md">slides_src/c-puntatori.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              24/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-puntatori.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Parametri in uscita</h2></header>
+            
+            
+            <section><p>I puntatori ci consentono di scrivere funzioni che modificano il valore dei loro parametri (<em>parametri in uscita</em>).</p>
+<p class="lessspaceafter"><em>Esempio:</em><br /></p>
+<div class="highlight"><pre><span class="c1">// Calcola le soluzioni reali di un&#39;equazione di 2o grado</span>
+<span class="c1">// a x^2 + b x + c = 0</span>
+
+<span class="kt">void</span> <span class="nf">eq2grado</span><span class="p">(</span><span class="kt">double</span> <span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="n">b</span><span class="p">,</span> <span class="kt">double</span> <span class="n">c</span><span class="p">,</span>
+              <span class="kt">double</span> <span class="o">*</span> <span class="n">x1</span><span class="p">,</span> <span class="kt">double</span> <span class="o">*</span> <span class="n">x2</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="kt">double</span> <span class="n">rad_delta</span><span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">b</span><span class="o">*</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">c</span><span class="p">));</span>
+    <span class="o">*</span><span class="n">x1</span><span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">+</span> <span class="n">rad_delta</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">a</span><span class="p">);</span>
+    <span class="o">*</span><span class="n">x2</span><span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">-</span> <span class="n">rad_delta</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">a</span><span class="p">);</span>
+
+    <span class="c1">// Non ritorna nulla (tipo di ritorno è void)</span>
+    <span class="c1">// ha già &quot;scritto&quot; in x1 e x2</span>
+<span class="p">}</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-puntatori.md">slides_src/c-puntatori.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              25/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-puntatori.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Parametri in uscita</h2></header>
+            
+            
+            <section><p>I puntatori ci consentono di scrivere funzioni che modificano il valore dei loro parametri (<em>parametri in uscita</em>).</p>
+<p class="lessspaceafter"><em>Esempio:</em><br /></p>
+<div class="highlight"><pre><span class="kt">void</span> <span class="nf">eq2grado</span><span class="p">(</span><span class="kt">double</span> <span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="n">b</span><span class="p">,</span> <span class="kt">double</span> <span class="n">c</span><span class="p">,</span>
+              <span class="kt">double</span> <span class="o">*</span> <span class="n">x1</span><span class="p">,</span> <span class="kt">double</span> <span class="o">*</span> <span class="n">x2</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">a</span><span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">0.0</span><span class="p">;</span>
+    <span class="p">...</span> <span class="c1">// Leggi a, b e c da tastiera (scanf)</span>
+    <span class="kt">double</span> <span class="n">x1</span><span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">x2</span><span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+
+    <span class="n">eq2grado</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x2</span><span class="p">);</span>
+    <span class="c1">//                ^^^^^^^^</span>
+    <span class="c1">//       ^^^^^^^  Parametri in uscita</span>
+    <span class="c1">//       Parametri in ingresso</span>
+    <span class="c1">// Ora x1 e x2 contengono le due soluzioni</span>
+<span class="p">}</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-puntatori.md">slides_src/c-puntatori.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              26/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-puntatori.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Array e puntatori</h2></header>
+            
+            
+            <section><p>Per il compilatore, una variabile array è come un puntatore alla prima locazione dell'array.</p>
+<p>Quindi:</p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span> <span class="p">};</span>
+
+<span class="kt">int</span> <span class="o">*</span> <span class="n">ptr</span><span class="o">=</span> <span class="n">arr</span><span class="p">;</span>  <span class="c1">// NON vuole l&#39;&amp;</span>
+
+<span class="n">ptr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span> <span class="mi">500</span><span class="p">;</span>     <span class="c1">// ora arr vale { 1, 5, 500, 4, 2 }</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-puntatori.md">slides_src/c-puntatori.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              27/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-puntatori.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Array allocati dinamicamente</h2></header>
+            
+            
+            <section><p>È possibile creare array con dimensione determinata durante l'esecuzione (a run-time).</p>
+<p>Si usa la funzione <code>malloc</code> (header: <code>&lt;stdlib.h&gt;</code>)</p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="n">n</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;Quanti numeri vuoi leggere? &quot;</span><span class="p">);</span>
+<span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="o">*</span> <span class="n">dynarr</span><span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span> <span class="n">n</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="p">);</span>
+<span class="c1">//                          ^   ^^^^^^^^^^^</span>
+<span class="c1">//                          |   dim. del tipo base</span>
+<span class="c1">//                          |--numero di elementi</span>
+<span class="c1">// dynarr è un puntatore che può essere usato</span>
+<span class="c1">// come se fosse un array di n interi</span>
+<span class="c1">// (con n letto da tastiera)</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-puntatori.md">slides_src/c-puntatori.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              28/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-puntatori.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Array allocati dinamicamente</h2></header>
+            
+            
+            <section><p>Gli array statici sono gestiti automaticamente.<br />
+Gli array allocati dinamicamente vanno gestiti <strong>manualmente</strong>.</p>
+<p class="center larger">Ogni <code>malloc</code> vuole la sua <code>free</code>!<br /></p>
+<p>La funzione <code>free</code> (header: <code>&lt;stdlib.h&gt;</code>) "libera" la memoria allocata mediante una <code>malloc</code>.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-puntatori.md">slides_src/c-puntatori.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              29/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-puntatori.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Ogni <code>malloc</code> vuole la sua <code>free</code></h2></header>
+            
+            
+            <section><p><em>Esempio:</em></p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="n">n</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;Quanti numeri vuoi leggere? &quot;</span><span class="p">);</span>
+<span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="o">*</span> <span class="n">dynarr</span><span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span> <span class="n">n</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="p">);</span>
+
+<span class="p">...</span>
+<span class="c1">// Legge i numeri e li elabora</span>
+<span class="p">...</span>
+
+<span class="c1">// Non ho più bisogno dell&#39;array</span>
+<span class="n">free</span><span class="p">(</span><span class="n">dynarr</span><span class="p">);</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-puntatori.md">slides_src/c-puntatori.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              30/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-puntatori.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Costruiamo una <code>strcat</code> migliore</h2></header>
+            
+            
+            <section><p><em>Esempio:</em> miglioriamo la funzione <code>strcat</code></p>
+<div class="highlight"><pre><span class="kt">char</span><span class="o">*</span> <span class="nf">better_strcat</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">s1</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">s2</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Determino la lunghezza delle due stringhe</span>
+  <span class="kt">int</span> <span class="n">s1len</span><span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">s1</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">s2len</span><span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span>
+
+  <span class="c1">// Creo una nuova stringa abbastanza grande</span>
+  <span class="kt">char</span><span class="o">*</span> <span class="n">new_s1</span><span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">((</span><span class="n">s1len</span><span class="o">+</span><span class="n">s2len</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+
+  <span class="c1">// Copio s1 nella nuova stringa e gli accodo s2</span>
+  <span class="n">strcpy</span><span class="p">(</span><span class="n">new_s1</span><span class="p">,</span> <span class="n">s1</span><span class="p">);</span>
+  <span class="n">strcat</span><span class="p">(</span><span class="n">new_s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">);</span>
+
+  <span class="c1">// &quot;Libero&quot; la stringa s1 &quot;vecchia&quot;</span>
+  <span class="n">free</span><span class="p">(</span><span class="n">s1</span><span class="p">);</span>
+
+  <span class="c1">// Restituisco</span>
+  <span class="k">return</span> <span class="n">new_s1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-puntatori.md">slides_src/c-puntatori.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              31/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-file.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>I/O su file</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-file.md">slides_src/c-file.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              32/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-file.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>I/O su file</h2></header>
+            
+            
+            <section><p>Input e output possono avvenire anche da/su file.</p>
+<p>È molto simile a quello che da/per terminale.</p>
+<p>Header: <code>&lt;stdio.h&gt;</code></p>
+<p>Si divide idealmente in 3 fasi:</p>
+<ol>
+<li>apertura del file</li>
+<li>lettura/scrittura da/su file</li>
+<li>chiusura del file</li>
+</ol></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-file.md">slides_src/c-file.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              33/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-file.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>1. Apertura di un file</h2></header>
+            
+            
+            <section><p><em>Apertura di un file:</em></p>
+<ul>
+<li>tipo <code>FILE</code>: tipo di variabili contenenti un "link simbolico" a un file</li>
+<li>funzione <code>FILE* fopen(char* name, char* mode)</code>: funzione per aprire un file di nome <code>name</code> in lettura (mode: <code>"r"</code>) o in scrittura (mode: <code>"w"</code>)</li>
+</ul>
+<p class="lesserspaceafter"><em>Esempio:</em><br /></p>
+<div class="highlight"><pre><span class="p">...</span>
+<span class="kt">FILE</span><span class="o">*</span> <span class="n">file</span><span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&quot;dati.txt&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">);</span> 
+                  <span class="c1">//          &quot;r&quot;: lettura</span>
+                  <span class="c1">//          &quot;w&quot;: scrittura</span>
+<span class="p">...</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-file.md">slides_src/c-file.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              34/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-file.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>E se il file non esistesse?</h2></header>
+            
+            
+            <section><p>Se errore in apertura, <code>fopen</code> ritorna <code>NULL</code>.</p>
+<div class="highlight"><pre><span class="p">...</span>
+<span class="kt">FILE</span><span class="o">*</span> <span class="n">file</span><span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&quot;dati.txt&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">file</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Impossibile aprire il file!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// Esco con un errore</span>
+<span class="p">}</span>
+<span class="p">...</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-file.md">slides_src/c-file.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              35/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-file.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>2. Lettura/scrittura</h2></header>
+            
+            
+            <section><p><em>Lettura scrittura:</em></p>
+<ul>
+<li>funzioni <code>fprintf</code>/<code>fscanf</code>: come le <code>printf</code> e <code>scanf</code> ma con aggiunto un parametro di tipo <code>FILE *</code></li>
+<li>funzione <code>bool feof(FILE* file)</code>: ritorna <code>true</code> se ho finito il file (solo in lettura)</li>
+</ul>
+<p class="lesserspaceafter"><em>Esempio:</em><br /></p>
+<div class="highlight"><pre><span class="p">...</span>
+<span class="k">while</span> <span class="p">(</span> <span class="o">!</span><span class="n">feof</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">p</span><span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">fscanf</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s">&quot;%d %d&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">g</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Ho letto %d e %d.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">g</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">...</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-file.md">slides_src/c-file.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              36/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-file.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>3. Chiusura del file</h2></header>
+            
+            
+            <section><p><em>Chiusura del file:</em></p>
+<ul>
+<li>funzione <code>void fclose(FILE* file)</code>: chiude il file.</li>
+</ul>
+<p>Per usare un file dopo la chiusura dovrei riaprirlo con la <code>fopen</code>.</p>
+<p><em>Esempio:</em></p>
+<div class="highlight"><pre><span class="p">...</span>
+<span class="n">fclose</span><span class="p">(</span><span class="n">file</span><span class="p">);</span>
+<span class="p">...</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-file.md">slides_src/c-file.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              37/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/c-file.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Esercizio di lettura</h2></header>
+            
+            
+            <section><p>In un file di nome <code>coppie.txt</code> è memorizzata una lista di coppie di numeri con una coppia per riga, scrivere un programma che legga le coppie e le stampi a schermo.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/c-file.md">slides_src/c-file.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              38/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/conclusions.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Conclusioni</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/conclusions.md">slides_src/conclusions.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              39/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_src/conclusions.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Conclusioni</h2></header>
+            
+            
+            <section><p class="large"><em>Take-home message:</em><br /></p>
+<ul>
+<li class="large">interdisciplinarità<br /></li>
+<li class="large">problemi e formalizzazione<br /></li>
+<li class="large">algoritmi e efficienza<br /></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_src/conclusions.md">slides_src/conclusions.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              40/40
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">Elementi di programmazione in C</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">Array in C</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-3" class="sub">
+          <th><a href="#slide3">Tipi non primitivi - Array</a></th>
+          <td><a href="#slide3">3</a></td>
+        </tr>
+        
+        <tr id="toc-row-4" class="sub">
+          <th><a href="#slide4">Dichiarazione di un array</a></th>
+          <td><a href="#slide4">4</a></td>
+        </tr>
+        
+        <tr id="toc-row-5" class="sub">
+          <th><a href="#slide5">Dichiarazione con inizializzazione</a></th>
+          <td><a href="#slide5">5</a></td>
+        </tr>
+        
+        <tr id="toc-row-6" class="sub">
+          <th><a href="#slide6">Accedere a un elemento</a></th>
+          <td><a href="#slide6">6</a></td>
+        </tr>
+        
+        <tr id="toc-row-7" class="sub">
+          <th><a href="#slide7">"Scorrere" un array</a></th>
+          <td><a href="#slide7">7</a></td>
+        </tr>
+        
+        <tr id="toc-row-8" class="sub">
+          <th><a href="#slide8">Assegnamento di array</a></th>
+          <td><a href="#slide8">8</a></td>
+        </tr>
+        
+        <tr id="toc-row-9" class="sub">
+          <th><a href="#slide9">Array multi-dimensionali</a></th>
+          <td><a href="#slide9">9</a></td>
+        </tr>
+        
+        <tr id="toc-row-10" class="sub">
+          <th><a href="#slide10">Array multi-dimensionali</a></th>
+          <td><a href="#slide10">10</a></td>
+        </tr>
+        
+        <tr id="toc-row-11" class="sub">
+          <th><a href="#slide11">Funzioni con parametri array</a></th>
+          <td><a href="#slide11">11</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">Stringhe</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-13" class="sub">
+          <th><a href="#slide13">Stringhe</a></th>
+          <td><a href="#slide13">13</a></td>
+        </tr>
+        
+        <tr id="toc-row-14" class="sub">
+          <th><a href="#slide14">Memorizzazione di stringhe</a></th>
+          <td><a href="#slide14">14</a></td>
+        </tr>
+        
+        <tr id="toc-row-15" class="sub">
+          <th><a href="#slide15">I/O di stringhe</a></th>
+          <td><a href="#slide15">15</a></td>
+        </tr>
+        
+        <tr id="toc-row-16" class="sub">
+          <th><a href="#slide16">Funzioni su stringhe</a></th>
+          <td><a href="#slide16">16</a></td>
+        </tr>
+        
+        <tr id="toc-row-17" class="sub">
+          <th><a href="#slide17">Funzioni su stringhe</a></th>
+          <td><a href="#slide17">17</a></td>
+        </tr>
+        
+        <tr id="toc-row-18" class="sub">
+          <th><a href="#slide18">Confronto di stringhe</a></th>
+          <td><a href="#slide18">18</a></td>
+        </tr>
+        
+        <tr id="toc-row-19" class="sub">
+          <th><a href="#slide19">Esercizi</a></th>
+          <td><a href="#slide19">19</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-20">
+        <th><a href="#slide20">I puntatori</a></th>
+        <td><a href="#slide20">20</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-21" class="sub">
+          <th><a href="#slide21">Tipi non primitivi - Puntatori</a></th>
+          <td><a href="#slide21">21</a></td>
+        </tr>
+        
+        <tr id="toc-row-22" class="sub">
+          <th><a href="#slide22">Puntatori - "indirizzo di"</a></th>
+          <td><a href="#slide22">22</a></td>
+        </tr>
+        
+        <tr id="toc-row-23" class="sub">
+          <th><a href="#slide23">Puntatori - "dereferenziamento"</a></th>
+          <td><a href="#slide23">23</a></td>
+        </tr>
+        
+        <tr id="toc-row-24" class="sub">
+          <th><a href="#slide24">Puntatori - problemi comuni</a></th>
+          <td><a href="#slide24">24</a></td>
+        </tr>
+        
+        <tr id="toc-row-25" class="sub">
+          <th><a href="#slide25">Parametri in uscita</a></th>
+          <td><a href="#slide25">25</a></td>
+        </tr>
+        
+        <tr id="toc-row-26" class="sub">
+          <th><a href="#slide26">Parametri in uscita</a></th>
+          <td><a href="#slide26">26</a></td>
+        </tr>
+        
+        <tr id="toc-row-27" class="sub">
+          <th><a href="#slide27">Array e puntatori</a></th>
+          <td><a href="#slide27">27</a></td>
+        </tr>
+        
+        <tr id="toc-row-28" class="sub">
+          <th><a href="#slide28">Array allocati dinamicamente</a></th>
+          <td><a href="#slide28">28</a></td>
+        </tr>
+        
+        <tr id="toc-row-29" class="sub">
+          <th><a href="#slide29">Array allocati dinamicamente</a></th>
+          <td><a href="#slide29">29</a></td>
+        </tr>
+        
+        <tr id="toc-row-30" class="sub">
+          <th><a href="#slide30">Ogni <code>malloc</code> vuole la sua <code>free</code></a></th>
+          <td><a href="#slide30">30</a></td>
+        </tr>
+        
+        <tr id="toc-row-31" class="sub">
+          <th><a href="#slide31">Costruiamo una <code>strcat</code> migliore</a></th>
+          <td><a href="#slide31">31</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-32">
+        <th><a href="#slide32">I/O su file</a></th>
+        <td><a href="#slide32">32</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-33" class="sub">
+          <th><a href="#slide33">I/O su file</a></th>
+          <td><a href="#slide33">33</a></td>
+        </tr>
+        
+        <tr id="toc-row-34" class="sub">
+          <th><a href="#slide34">1. Apertura di un file</a></th>
+          <td><a href="#slide34">34</a></td>
+        </tr>
+        
+        <tr id="toc-row-35" class="sub">
+          <th><a href="#slide35">E se il file non esistesse?</a></th>
+          <td><a href="#slide35">35</a></td>
+        </tr>
+        
+        <tr id="toc-row-36" class="sub">
+          <th><a href="#slide36">2. Lettura/scrittura</a></th>
+          <td><a href="#slide36">36</a></td>
+        </tr>
+        
+        <tr id="toc-row-37" class="sub">
+          <th><a href="#slide37">3. Chiusura del file</a></th>
+          <td><a href="#slide37">37</a></td>
+        </tr>
+        
+        <tr id="toc-row-38" class="sub">
+          <th><a href="#slide38">Esercizio di lettura</a></th>
+          <td><a href="#slide38">38</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-39">
+        <th><a href="#slide39">Conclusioni</a></th>
+        <td><a href="#slide39">39</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-40" class="sub">
+          <th><a href="#slide40">Conclusioni</a></th>
+          <td><a href="#slide40">40</a></td>
+        </tr>
+        
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+</body>
+</html>
